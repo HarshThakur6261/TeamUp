@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import './profile.scss'; // Import normal CSS
-import Usercontext from "../Context/Usercontext";
+import Usercontext from "../../../Context/Usercontext";
 import Select from "react-select";
-import { handleError, handleSucess } from "../Utils/utils";
+import { handleError, handleSucess } from "../../../Utils/utils";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import skillOptions from '../Utils/Skillsoption'
+import skillOptions from '../../../Utils/Skillsoption'
 
 const currentYear = new Date().getFullYear();
 const graduationYears = [

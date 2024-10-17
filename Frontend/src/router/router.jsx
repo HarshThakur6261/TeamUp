@@ -1,18 +1,18 @@
 import { createBrowserRouter, Form } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import Login from "../Pages/login";
-import Signup from "../Pages/signup";
+import Login from "../Auth_Pages/LoginPage/login";
+import Signup from "../Auth_Pages/SignupPage/signup";
 import Home from "../Pages/home";
-import Profile from "../Pages/profile";
+import Profile from "../Auth_Pages/SignupPage/Profilecreate/profile";
 import { ToastContainer } from "react-toastify";
-import { Protected, Admin } from "../AuthComponent/Protected";
+import { Protected, Admin } from "../Auth_Pages/AuthComponent/Protected";
 import App from "../App";
-import Setpassword from "../Pages/setpassword";
+import Setpassword from "../Auth_Pages/SignupPage/SetPassword/setpassword";
 import HomePage from "../components/homepage/HomePage";
 import Teams from "../components/teams/Teams";
 import Hackathon from "../components/hackathons/Hackathon";
 import Messages from "../components/messages/Messages";
-import EditProfile from "../components/navbar/edit-profile/EditProfile";
+import EditProfile from "../HomePage/Navbar/edit-profile/EditProfile";
 
 const router = createBrowserRouter([
   {
