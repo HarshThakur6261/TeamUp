@@ -1,18 +1,21 @@
 import { createBrowserRouter, Form } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import Login from "../Auth_Pages/LoginPage/login";
-import Signup from "../Auth_Pages/SignupPage/signup";
-import Home from "../Pages/home";
-import Profile from "../Auth_Pages/SignupPage/Profilecreate/profile";
-import { ToastContainer } from "react-toastify";
-import { Protected, Admin } from "../Auth_Pages/AuthComponent/Protected";
+
 import App from "../App";
-import Setpassword from "../Auth_Pages/SignupPage/SetPassword/setpassword";
-import HomePage from "../components/homepage/HomePage";
-import Teams from "../components/teams/Teams";
-import Hackathon from "../components/hackathons/Hackathon";
-import Messages from "../components/messages/Messages";
-import EditProfile from "../HomePage/Navbar/edit-profile/EditProfile";
+import  Login from "./../AuthPages/LoginPage/login"
+import Signup  from "./../AuthPages/SignupPage/signup"
+import Home from "./../HomePages/home"
+import HomePage from "./../HomePages/HomePage/HomePage"
+import Teams from "./../HomePages/HomePage/Navbar/Teams/Teams"
+import Hackathon from "./../HomePages/HomePage/Navbar/Hackathons/Hackathon"
+import Messages  from "./../HomePages/HomePage/Navbar/Message/Messages"
+import EditProfile from "./../HomePages/HomePage/Profile-section/EditProfile/EditProfile"
+import {Protected} from "./../AuthPages/AuthComponent/Protected"
+import CreateProfile from "./../AuthPages/SignupPage/CreateProfile/CreateProfile";
+import Setpassword from "./../AuthPages/SignupPage/SetPassword/setpassword"
+import UpcomingHackathon from "../HomePages/HomePage/Navbar/Hackathons/listed_hackathons/UpcomingHackathon";
+import TeamDetails from "../HomePages/HomePage/Navbar/Hackathons/team-details/TeamDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -45,7 +48,8 @@ const router = createBrowserRouter([
           },
           {
             path:"hackathons",
-            element:<Hackathon/>
+            element:<Hackathon/>,
+            
           },
           {
             path:"messages",
@@ -55,13 +59,21 @@ const router = createBrowserRouter([
             path:"edit-profile",
             element:<EditProfile/>
         },
+        {
+          path:":hackathonName",
+          element:<UpcomingHackathon/>
+        },
+        {
+          path:"team-details",
+          element:<TeamDetails/>
+        },
         ]
       },
       {
         path: "profile",
         element: (
           <Protected>
-            <Profile></Profile>
+            <CreateProfile></CreateProfile>
             </Protected>
         
         ),
@@ -74,7 +86,9 @@ const router = createBrowserRouter([
           <Setpassword/>
       
       ),
+
     },
+
   
 
     ],

@@ -8,6 +8,8 @@ const Profilerouter = require("./Router/Profilerouter");
 const { UserModel } = require("./model/db");
 const homerouter = require("./Router/homerouter");
 const editprofilerouter = require("./Router/editprofilerouter");
+const hackathondetails = require("./Router/hackathondetails");
+const SearchMembers = require("./Router/SearchMembers");
 require("dotenv").config();
 require("./model/db")
 
@@ -20,7 +22,10 @@ app.use("/auth" , authrouter)
 app.use("/google/auth",google_auth_router)
 app.use("/profile" , Profilerouter)
 app.use("/home",homerouter)
-app.use("/home/edit-profile",editprofilerouter)
+app.use("/hackathon",hackathondetails)
+app.use("/add-member",SearchMembers)
+
+// app.use("/home/edit-profile",editprofilerouter)
 
 
 app.listen(Port, () =>{
