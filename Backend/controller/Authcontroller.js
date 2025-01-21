@@ -25,10 +25,12 @@ const signup = async (req, res) => {
     UserModell.password = await bcrypt.hash(password, 10);
     const { _id, isAdmin } = await UserModell.save();
     const token = jwt.sign(
-      {
+      {user:{
         email,
         isAdmin,
         UserId: _id,
+      }
+       
       },
       process.env.SecretKey,
      
@@ -54,19 +56,19 @@ const login = async (req, res) => {
         });
     }
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Stored Hashed Password: ", user.password);
-    console.log(isMatch);
+   
     if (!isMatch) {
       return res
         .status(400)
         .json({ message: "Invalid email or password", success: false });
     }
     const token = jwt.sign(
-      { email, UserId: user._id, isAdmin: user.isAdmin },
+      {user},
+      // { email, name:user.name, UserId: user._id, isAdmin: user.isAdmin },
       process.env.SecretKey,
     
     );
-
+    
     res
       .status(200)
       .json({ message: "Login successful", success: true, jwt_token: token });
