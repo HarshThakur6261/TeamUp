@@ -31,7 +31,7 @@ const handlelogout = () =>{
     <>
       <div className='nav-container'>
         <div>
-       <h3 style={{color:"white"}}>Logo</h3>
+       <h3 style={{color:"white"}}>TeamUp</h3>
         </div>
         <div className="navbar">
           <ul>
