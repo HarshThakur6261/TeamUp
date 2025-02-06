@@ -18,6 +18,7 @@ const ViewNotification = ({ setIsFloatingVisible, Details }) => {
     setIsFloatingVisible(false);
   };
 
+
   const handleAccept = async () => {
     
     try {
@@ -107,7 +108,7 @@ const ViewNotification = ({ setIsFloatingVisible, Details }) => {
           <div className={styles.memberInfo}>
             <p
               className={styles.memberName}
-              onClick={() => handleNavigate(value.user.email)}
+              onClick={()=>handleNavigate(value.user.email)}
             >
               {value.user.name || "Unknown"}
             </p>

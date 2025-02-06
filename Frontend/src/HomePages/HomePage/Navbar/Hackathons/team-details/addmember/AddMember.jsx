@@ -13,8 +13,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 
 const AddMember = () => {
-
-
     const { socket } = useContext(SocketContext)
     const { Userinfo } = useContext(Usercontext);
 
@@ -92,7 +90,31 @@ const AddMember = () => {
         return () => clearInterval(intervalId);
     }, [hackathonName, teamData._id]);
 
-
+    // useEffect(() => {
+    //     if (socket && teamData?._id && Userinfo?._id) {
+    //       // Emit event to fetch team data
+    //       socket.emit("fetchTeamData", teamData._id, Userinfo._id);
+    
+    //       // Listen for team data updates
+    //       socket.on("teamDataFetched", (team) => {
+    //         setTeamMembers(team.members);
+    //       });
+    
+    //       // Handle errors
+    //       socket.on("teamDataError", (error) => {
+    //         console.error("Error fetching team data:", error);
+    //         toast.error(error);
+    //       });
+    //     }
+    
+    //     // Cleanup socket listeners
+    //     return () => {
+    //       if (socket) {
+    //         socket.off("teamDataFetched");
+    //         socket.off("teamDataError");
+    //       }
+    //     };
+    //   }, [socket, teamData?._id, Userinfo?._id]);
 
     const handleCollegeChange = (e) => {
         const { value, checked } = e.target;
@@ -338,18 +360,20 @@ const AddMember = () => {
                                                         <button className={styles.memberRole}>
                                                             {value.role ? value.role.charAt(0).toUpperCase() + value.role.slice(1) : ""}
                                                         </button>
+                                                        {/* to remove member by leader only */}
 
-                                                        {
-                                                            value.role === 'member' && (
+                                                        {value.role === 'member' && teamData?.members?.some(
+                                                            (member) =>
+                                                                member.role === "leader" &&
+                                                                member.user.toString() === Userinfo._id.toString()
+                                                        ) && (
                                                                 <button
-                                                                    key={value._id}
                                                                     className={styles.removeBtn}
                                                                     onClick={() => handleRemoveModal(value.user._id)}
                                                                 >
-                                                                  <FontAwesomeIcon icon={faXmark} />  Remove
+                                                                    <FontAwesomeIcon icon={faXmark} /> Remove
                                                                 </button>
-                                                            )
-                                                        }
+                                                            )}
 
                                                     </div>
                                                 </div>
@@ -365,6 +389,7 @@ const AddMember = () => {
 
 
 
+                            {/* to leave for members only */}
                             {teamData?.members?.some(
                                 (member) =>
                                     member.role === "member" &&
@@ -396,7 +421,7 @@ const AddMember = () => {
                     <div className={styles.rightPanel}>
                         <div className={styles.filters}>
                             <div className={styles.filterheader}>
-                            <p className={styles.filterName}>Filters</p>
+                                <p className={styles.filterName}>Filters</p>
                                 <button onClick={handleReset}>Reset</button>
                             </div>
 
@@ -516,7 +541,7 @@ const AddMember = () => {
                                         </div>
                                     ))
                                 ) : (
-                                    <p style={{color:'#6B7280',textAlign:'center'}}>No users found</p>
+                                    <p style={{ color: '#6B7280', textAlign: 'center' }}>No users found</p>
                                 )}
                             </div>
                         </div>
