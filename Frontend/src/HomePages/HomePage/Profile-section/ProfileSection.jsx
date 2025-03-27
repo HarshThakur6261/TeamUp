@@ -27,7 +27,7 @@ const ProfileSection = () => {
         
 
         const payload = jwtDecode(token)
-        // console.log("paylogad",payload)
+        console.log("paylogad",payload)
 
         const fetchuserdata = async () => {
            
@@ -36,6 +36,7 @@ const ProfileSection = () => {
                 const response = await axios.get(`http://localhost:3000/home/userdata/${payload.user.email}`)
 
                 // setprofilepic(response.data.userdata.profilePicture)
+                // console.log(response.data.user)
                 setuserdata(response.data.userdata);
                 setload(false);
 

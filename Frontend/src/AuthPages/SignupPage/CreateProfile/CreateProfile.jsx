@@ -39,6 +39,8 @@ function CreateProfile() {
         `http://localhost:3000/home/userdata/${Userinfo.email}`
       );
       SetUserinfo(response.data.userdata);
+      console.log(response.data.userdata);
+      console.log(Userinfo);
       sessionStorage.setItem("Userinfo" , Userinfo);
     } catch (error) {
       console.log("error in fetching user details", error);

@@ -14,6 +14,7 @@ const Teams = () => {
     const queryParams = new URLSearchParams(window.location.search)
 
     let token = queryParams.get('token');
+    console.log(token);
     if (token) {
       sessionStorage.setItem('token', token)
 
@@ -22,6 +23,7 @@ const Teams = () => {
       token = sessionStorage.getItem('token', token);
     }
     const payload = jwtDecode(token)
+    console.log(payload.user);
 
 
     const fetchTeamData = async () => {
