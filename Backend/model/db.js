@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const URL = process.env.URL;
+const URL = process.env.URL || 'mongodb+srv://thakurharsh345:5yH4oZvOycA6Qr7z@hackathonwebsite.fqup5.mongodb.net/WebsiteUser';
+console.log(URL)
 
 mongoose
   .connect(URL)
   .then(() => {
+    console.log(URL)
     console.log("User database connected");
+    
   })
   .catch((e) => {
     console.log("User database connection error", e);
