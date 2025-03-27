@@ -1,7 +1,64 @@
 .post-container {
-    height: 100vh;
-    background-color: #eff2f8; 
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
+  width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.post-time {
+  font-size: 12px;
+  color: #888;
+}
+
+.post-content {
+  margin-bottom: 15px;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  color: #0073b1; // LinkedIn-like blue
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  text-decoration: underline;
+}

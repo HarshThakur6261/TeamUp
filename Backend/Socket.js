@@ -1,5 +1,5 @@
 const { Server } = require("socket.io");
-const { UserModel, NotificationModel } = require("./model/db");
+const { UserModel, NotificationModel, TeamModel } = require("./model/db");
 
 function hello(server) {
   const io = new Server(server, {
@@ -100,18 +100,8 @@ function hello(server) {
     socket.on("disconnect", () => {
       console.log("disconnect user");
       removeUser(socket.id);
-    });socket.on("deleteTeam", async (teamId) => {
-      try {
-        // Perform the team deletion logic
-        await TeamModel.findByIdAndDelete(teamId);
-        // Emit 'teamDeleted' to all connected clients
-        io.emit("teamDeleted", teamId);  // Emit to all connected clients
-      } catch (error) {
-        console.error("Error deleting team:", error);
-        socket.emit("errorDeletingTeam", error.message); // Emit error back to the requester
-      }
     });
-
+    
     socket.on("deleteTeam", async (teamId) => {
       try {
         // Perform the team deletion logic
@@ -123,6 +113,35 @@ function hello(server) {
         socket.emit("errorDeletingTeam", error.message); // Emit error back to the requester
       }
     });
+
+    socket.on("fetchTeamData", async (teamId, userId) => {
+      try {
+        const team = await TeamModel.findById(teamId).populate("members.user");
+        if (!team) {
+          socket.emit("teamDataError", "Team not found");
+          return;
+        }
+
+        // Check if the user is part of the team
+        const isMember = team.members.some(
+          (member) => member.user._id.toString() === userId
+        );
+
+        if (!isMember) {
+          socket.emit("teamDataError", "You are not a member of this team");
+          return;
+        }
+
+        // Emit the team data back to the client
+        socket.emit("teamDataFetched", team);
+      } catch (error) {
+        console.error("Error fetching team data:", error);
+        socket.emit("teamDataError", "Failed to fetch team data");
+      }
+    });
+
+
+    
   });
 
   

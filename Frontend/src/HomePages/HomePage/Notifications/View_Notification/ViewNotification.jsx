@@ -5,7 +5,7 @@ import Usercontext from "../../../../Context/Usercontext";
 import SocketContext from "../../../../Context/SocketContext";
 import styles from "./ViewNotification.module.css"; // Import the module.css
 
-import { handleError, handleSucess } from "../../../../utils/utils";
+import { handleError, handleSucess } from "../../../../Utils/utils";
 import { ToastContainer } from "react-toastify";
 
 const ViewNotification = ({ setIsFloatingVisible, Details }) => {
@@ -17,6 +17,7 @@ const ViewNotification = ({ setIsFloatingVisible, Details }) => {
   const handlecloseNotification = () => {
     setIsFloatingVisible(false);
   };
+
 
   const handleAccept = async () => {
     
@@ -107,7 +108,7 @@ const ViewNotification = ({ setIsFloatingVisible, Details }) => {
           <div className={styles.memberInfo}>
             <p
               className={styles.memberName}
-              onClick={() => handleNavigate(value.user.email)}
+              onClick={()=>handleNavigate(value.user.email)}
             >
               {value.user.name || "Unknown"}
             </p>
