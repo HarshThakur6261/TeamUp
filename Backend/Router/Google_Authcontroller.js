@@ -85,3 +85,4 @@ res.redirect(`http://localhost:5173/setpassword?token=${token}`);
   });
 
 module.exports = {google_auth_router}
+

@@ -1,4 +1,4 @@
-import styles from "./login.module.css";
+import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useState } from "react";
 import { handleError, handleSucess } from "../../Utils/utils";
@@ -9,34 +9,37 @@ import SocketContext from "../../Context/SocketContext";
 import axios from "axios";
 
 function Login() {
-  const { SetloggedIn} = useContext(SocketContext)
-  const{SetUserinfo} = useContext(Usercontext)
+  const { SetloggedIn } = useContext(SocketContext);
+  const { SetUserinfo } = useContext(Usercontext);
   const [logininfo, Setlogininfo] = useState({
-    email:"",
+    email: "",
     password: "",
   });
 
-  const FetchUserDetails = async() =>{
-    try{
-    const response = await axios.get(`http://localhost:3000/home/userdata/${logininfo.email}`);
-    SetUserinfo(response.data.userdata)
-    }catch(error){
-     console.log("error in fetching user details")
+  const FetchUserDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/home/userdata/${logininfo.email}`);
+      SetUserinfo(response.data.userdata);
+    } catch (error) {
+      console.log("error in fetching user details");
     }
-  }
+  };
 
   const navigate = useNavigate();
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    Setlogininfo((prev) => ({ ...prev, [name]: value }));
+    Setlogininfo((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     const { email, password } = logininfo;
     if (!email || !password) {
-      handleError("email , password required");
+      handleError("Email and password required");
       return;
     }
     try {
@@ -51,21 +54,15 @@ function Login() {
       const result = await response.json();
       const { success, error, message, jwt_token } = result;
       if (success) {
-        
         sessionStorage.setItem("token", jwt_token);
         FetchUserDetails();
-        
-   
-       try {
-        SetloggedIn(true);
-        
-      } catch (error) {
-        console.error("Error in SetloggedIn:", error);
-      }
-       
+        try {
+          SetloggedIn(true);
+        } catch (error) {
+          console.error("Error in SetloggedIn:", error);
+        }
         handleSucess(message);
         setTimeout(() => {
-          console.log("enter")
           navigate("/home");
         }, 1000);
       } else {
@@ -77,53 +74,79 @@ function Login() {
   };
 
   return (
-    <div className={styles.body}>
-    <div className={styles.loginbanner}>
-      {/* Left video section */}
-      <div className={styles.loginbannerVideo}>
-        <video autoPlay loop muted className={styles.video}>
-          <source src="/assets/loginmv.mp4" type="video/mp4" />
+    <div className={styles.container}>
+      {/* Left Panel with Video */}
+      {/* <div className={styles.leftPanel}>
+        <div className={styles.videoContainer}>
+         <img src="/assets/loginbg.webp" className={styles.video} alt="" />
+        </div>
+      </div> */}
 
-        </video>
+      {/* Right Panel with Form */}
+      <div className={styles.rightPanel}>
+        <div className={styles.mainContent}>
+          <div className={styles.backgroundEffects}>
+            <div className={styles.purpleGlow}></div>
+            <div className={styles.tealGlow}></div>
+          </div>
+          
+          <div className={styles.contentWrapper}>
+          <div className={styles.logoContainer}>
+  <h2 className={styles.logoText}>TeamUp</h2>
+</div>
+            
+            <div className={styles.formContainer}>
+              <h1 className={styles.formTitle}>Welcome back</h1>
+              <p className={styles.formSubtitle}>Enter your credentials to access your account.</p>
+              
+              <form onSubmit={handlesubmit} className={styles.form}>
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Email address</label>
+                <input
+                  className={styles.input}
+                  type="email"
+                  name="email"
+                  value={logininfo.email}
+                  onChange={handlechange}
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Password</label>
+                <input
+                  className={styles.input}
+                  type="password"
+                  name="password"
+                  value={logininfo.password}
+                  onChange={handlechange}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              
+              <div className={styles.options}>
+                <Link to="/forgot-password" className={styles.forgotPassword}>
+                  Forgot password?
+                </Link>
+              </div>
+              
+              <button type="submit" className={styles.loginButton}>
+                Sign In
+              </button>
+            </form>
+              
+              <div className={styles.signupPrompt}>
+                Don't have an account? <Link to="/signup" className={styles.signupLink}>Sign up</Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-  
-      {/* Right form section */}
-      <div className={styles.container}>
-        <h1 className={styles.header}>Welcome!</h1>
-        <p className={styles.subheader}>Sign in to your Account</p>
-        <form className={styles.form} onSubmit={handlesubmit}>
-          <input
-            className={styles.input}
-            onChange={handlechange}
-            type="text"
-            name="email"
-            placeholder="Email Address"
-          />
-          <input
-            className={styles.input}
-            onChange={handlechange}
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-          <Link className={styles.link} to="/forgot-password">
-            Forgot Password?
-          </Link>
-          <button type="submit" className={styles.button}>
-            Sign In
-          </button>
-        </form>
-        <span className={styles.span}>
-          Don't have an account? <Link className={styles.link} to="/signup">Sign up</Link>
-        </span>
-        <ToastContainer />
-      </div>
+      <ToastContainer />
     </div>
-  </div>
-  
-  
   );
 }
 
 export default Login;
-

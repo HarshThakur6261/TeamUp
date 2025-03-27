@@ -6,10 +6,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Usercontext from "../../Context/Usercontext";
 import SocketContext from "../../Context/SocketContext";
+
 function Signup() {
   const { Userinfo, SetUserinfo } = useContext(Usercontext);
   const navigate = useNavigate();
-  const { SetloggedIn} = useContext(SocketContext)
+  const { SetloggedIn } = useContext(SocketContext);
+  
   const handlechange = (e) => {
     const { name, value } = e.target;
     const copyinfo = { ...Userinfo };
@@ -60,40 +62,93 @@ function Signup() {
   };
 
   return (
-    <div className={styles.signupContainer}>
-      <div className={styles.signupContent}>
-        <div className={styles.illustration}>
-          <video src="/assets/loginmv.mp4" autoPlay loop muted className={styles.video} />
+    <div className={styles.container}>
+      {/* Left Panel with Video */}
+      {/* <div className={styles.leftPanel}>
+        <div className={styles.videoContainer}>
+          <img src="/assets/loginbg.webp" className={styles.video} alt="" />
         </div>
-        <div className={styles.formContainer}>
-          <h1 className={styles.heading}>Signup</h1>
-          <form className={styles.form} onSubmit={handlesubmit}>
-            <div>
-              <label className={styles.label} htmlFor="name">Name</label>
-              <input id="name" className={styles.input} onChange={handlechange} type="text" name="name" placeholder="Enter your name" />
+      </div> */}
+
+      {/* Right Panel with Form */}
+      <div className={styles.rightPanel}>
+      <div className={styles.mainContent} style={{ height: 'auto', minHeight: '100vh' }}>
+          <div className={styles.backgroundEffects}>
+            <div className={styles.purpleGlow}></div>
+            <div className={styles.tealGlow}></div>
+          </div>
+          
+          <div className={styles.contentWrapper}>
+            <div className={styles.logoContainer}>
+              <h2 className={styles.logoText}>TeamUp</h2>
             </div>
-            <div>
-              <label className={styles.label} htmlFor="email">Email</label>
-              <input id="email" className={styles.input} onChange={handlechange} type="text" name="email" placeholder="Enter your email" />
+            
+            <div className={styles.formContainer}>
+              <h1 className={styles.formTitle}>Create your account</h1>
+              <p className={styles.formSubtitle}>Join us to get started</p>
+              
+              <form onSubmit={handlesubmit} className={styles.form}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Full Name</label>
+                  <input
+                    id="name"
+                    className={styles.input}
+                    onChange={handlechange}
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Email</label>
+                  <input
+                    id="email"
+                    className={styles.input}
+                    onChange={handlechange}
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+                
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Password</label>
+                  <input
+                    id="password"
+                    className={styles.input}
+                    onChange={handlechange}
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                  />
+                </div>
+                
+                <button type="submit" className={styles.loginButton}>
+                  Sign Up
+                </button>
+                
+                <div className={styles.divider}>or</div>
+                
+                <div className={styles.googlediv}>
+                  <a className={styles.googleButton} href="http://localhost:3000/google/auth/signup">
+                    <img className={styles.googleIcon} src="/assets/googles.png" alt="Google logo" /> 
+                    Sign up with Google
+                  </a>
+                </div>
+                
+                <div className={styles.signupPrompt}>
+                  Already have an account? <Link to="/login" className={styles.signupLink}>Login</Link>
+                </div>
+              </form>
             </div>
-            <div>
-              <label className={styles.label} htmlFor="password">Password</label>
-              <input id="password" className={styles.input} onChange={handlechange} type="password" name="password" placeholder="Enter password" />
-            </div>
-            <button className={styles.signup}>Signup</button>
-            <span className={styles.span}>
-              Already have an account? <Link className={styles.link} to="/login">Login</Link>
-            </span>
-            <div className={styles.divider}>or</div>
-            <div className={styles.googlediv}>
-              <a className={styles.googleButton} href="http://localhost:3000/google/auth/signup">
-                <img className={styles.googleIcon} src="/assets/googles.png" alt="Google logo" /> Sign up with Google
-              </a>
-            </div>
-          </form>
-          <ToastContainer />
+          </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

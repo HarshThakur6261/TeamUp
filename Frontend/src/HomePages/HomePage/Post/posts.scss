@@ -1,64 +1,192 @@
 .post-container {
-  width: 400px;
+  max-width: 550px;
   margin: 20px auto;
-  padding: 15px;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
+}
+
+.post {
   background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  padding: 16px;
+  transition: box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-}
+  margin-bottom: 12px;
+  position: relative;
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
-}
+  .avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid #f5f5f5;
+  }
 
-.user-info {
-  display: flex;
-  flex-direction: column;
-}
+  .user-info {
+    flex: 1;
+    
+    .user-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0;
+      color: #000000e6;
+      
+      .user-title {
+        font-weight: 400;
+        color: #666;
+      }
+    }
+    
+    .post-time {
+      font-size: 12px;
+      color: #666;
+      margin: 2px 0 0;
+      
+      .visibility {
+        color: #0073b1;
+      }
+    }
+  }
 
-.user-name {
-  font-weight: bold;
-}
-
-.post-time {
-  font-size: 12px;
-  color: #888;
+  .more-options {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+    border-radius: 50%;
+    
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
 }
 
 .post-content {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #000000e6;
+    margin-bottom: 12px;
+  }
+
+  .post-media {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    .post-image {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .media-caption {
+      padding: 12px;
+      
+      h4 {
+        margin: 0 0 4px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      
+      p {
+        margin: 0 0 4px;
+        font-size: 14px;
+        color: #666;
+      }
+      
+      .domain {
+        font-size: 12px;
+        color: #666;
+      }
+    }
+  }
 }
 
-.post-image {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
+.post-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e1e1e1;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+
+  .reactions {
+    display: flex;
+    align-items: center;
+    
+    .reaction-icons {
+      margin-right: 6px;
+      font-size: 16px;
+    }
+  }
 }
 
 .post-actions {
   display: flex;
   justify-content: space-between;
+  padding-top: 4px;
+
+  .action-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    .icon {
+      margin-right: 6px;
+      font-size: 18px;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #0073b1;
+    }
+  }
 }
 
-.action-btn {
-  background-color: transparent;
-  border: none;
-  font-size: 14px;
-  color: #0073b1; // LinkedIn-like blue
-  cursor: pointer;
-}
-
-.action-btn:hover {
-  text-decoration: underline;
+// Responsive design
+@media (max-width: 600px) {
+  .post-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .post {
+    padding: 12px;
+  }
+  
+  .post-actions .action-btn {
+    font-size: 12px;
+    padding: 6px 8px;
+    
+    .icon {
+      font-size: 16px;
+    }
+  }
 }

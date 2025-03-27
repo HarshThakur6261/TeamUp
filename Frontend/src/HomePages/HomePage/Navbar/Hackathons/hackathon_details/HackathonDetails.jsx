@@ -17,7 +17,9 @@ const HackathonDetails = () => {
     const handleNavigate = async (hackathonName) => {
         try {
             const token = sessionStorage.getItem('token');
+            console.log("token",token);
             const payload = jwtDecode(token);
+            // console.log("user",payload.user.email);
             const URL = `http://localhost:3000/enroll/checkenroll/${payload.user.email}/${hackathonName}`;
             const response = await fetch(URL, {
                 method: "GET",
